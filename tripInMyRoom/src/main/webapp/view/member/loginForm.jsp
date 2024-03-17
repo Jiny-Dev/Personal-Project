@@ -9,6 +9,7 @@
 
 <body>
 	<form method="post", action="http://localhost:8085/tripInMyRoom/Controller">
+		<input type="hidden" name="command" value="login">
 		<input type="text" name="userID" id="userID" placeholder="아이디를 입력하세요."/>
 		<input type="password" name="userPWD" id="userPWD" placeholder="비밀번호를 입력하세요."/>
 		<input type="submit" name="submit" id="submit" value="Login"/>		
