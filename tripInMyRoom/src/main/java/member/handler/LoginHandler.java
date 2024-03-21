@@ -11,12 +11,12 @@ public class LoginHandler implements CommandHandler {
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setContentType("text/html;charset=UTF-8");
 
-        String userId = request.getParameter("userID");
-        String password = request.getParameter("userPWD");
+        String memberID = request.getParameter("memberID");
+        String memberPWD = request.getParameter("memberPWD");
 
-        if ("wonjiny".equals(userId) && "1234".equals(password)) {
+        if ("wonjiny".equals(memberID) && "1234".equals(memberPWD)) {
             HttpSession session = request.getSession();
-            session.setAttribute("userId", userId);
+            session.setAttribute("memberID", memberID);
             return "/view/main/mainForm.jsp";
         } else {
             String errorMessage = "아이디 또는 비밀번호가 잘못되었습니다. 다시 시도해주세요.";
