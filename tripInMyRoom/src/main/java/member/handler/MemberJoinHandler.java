@@ -20,32 +20,24 @@ public class MemberJoinHandler implements CommandHandler {
         String phone = request.getParameter("phone");
         int memberAge = Integer.parseInt(request.getParameter("memberAge"));
 
-        if (memberID.length() < 5 || memberID.length() > 20) {
-            String errorMessage = "아이디는 최소 5자 이상 20자 이하이어야 합니다.";
+        if (memberID.length() < 5 || memberID.length() > 20 || 
+        		!memberID.matches("[a-z]+") && !memberID.matches("[a-z0-9]+")) {
+            String errorMessage = "아이디는 최소 5자 이상 20자 이내의 소문자만 허용되거나 소문자와 숫자의 조합이어야 합니다.";
             request.setAttribute("errorMessage", errorMessage);
             return "/view/member/memberJoin.jsp";
         }
 
-        if (!memberID.matches("[a-z]+") && !memberID.matches("[a-z0-9]+")) {
-            String errorMessage = "아이디는 소문자만 허용되거나 소문자와 숫자의 조합이어야 합니다.";
+
+        if (memberPWD.length() < 8 || memberPWD.length() > 16 ||
+        		!memberPWD.matches(".*[0-9].*") || 
+                !memberPWD.matches(".*[a-z].*") || 
+                !memberPWD.matches(".*[A-Z].*") || 
+                !memberPWD.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
+            String errorMessage = "비밀번호는 최소 8자 이상 16자 대소문자, 숫자, 특수문자가 적어도 하나씩 포함되어야 합니다";
             request.setAttribute("errorMessage", errorMessage);
             return "/view/member/memberJoin.jsp";
         }
 
-        if (memberPWD.length() < 8 || memberPWD.length() > 16) {
-            String errorMessage = "비밀번호는 최소 8자 이상 16자 이하이어야 합니다.";
-            request.setAttribute("errorMessage", errorMessage);
-            return "/view/member/memberJoin.jsp";
-        }
-
-        if (!memberPWD.matches(".*[0-9].*") || 
-            !memberPWD.matches(".*[a-z].*") || 
-            !memberPWD.matches(".*[A-Z].*") || 
-            !memberPWD.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
-            String errorMessage = "비밀번호는 대소문자, 숫자, 특수문자가 적어도 하나씩 포함되어야 합니다.";
-            request.setAttribute("errorMessage", errorMessage);
-            return "/view/member/memberJoin.jsp";
-        }
 
         if (!memberPWD.equals(memberPWDConfirm)) {
             String errorMessage = "비밀번호 확인이 일치하지 않습니다.";
